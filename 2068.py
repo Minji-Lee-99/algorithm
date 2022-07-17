@@ -1,3 +1,4 @@
+#최대수 구하기
 T = int(input())
 for test_case in range(1, T + 1):
   num_lst = list(map(int, input().split()))
@@ -5,4 +6,5 @@ for test_case in range(1, T + 1):
   for i in range(0, len(num_lst)):
     if max_num < num_lst[i]:
       max_num = num_lst[i]
+  print("#%d %d" %(test_case, max_num))
       
