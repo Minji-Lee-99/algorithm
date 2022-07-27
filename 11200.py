@@ -1,3 +1,5 @@
+# 구미 3반 solving culb
+# 별그리기 2
 T = int(input())
 for test_case in range(1, T + 1):
     N, M = map(int, input().split())
