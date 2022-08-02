@@ -3,6 +3,7 @@
 T = int(input())
 for test_case in range(1, T + 1):
     N, M = map(int, input().split())
+    # 필요한 변수 선언
     board = [[0] * N for i in range(N)]
     board[N // 2][N // 2] = board[(N // 2) - 1][(N // 2) - 1] = 2
     board[N // 2][(N // 2) - 1] = board[(N // 2) - 1][N // 2] = 1
@@ -10,22 +11,25 @@ for test_case in range(1, T + 1):
     dy = [-1, -1, 0, 1, 1, 1, 0, -1]
     colors = [0, 2, 1]
     result = [0, 2, 2]
-    for i in range(M):
+    for i in range(M): # 돌을 놓는 만큼 반복
         y, x, color = map(int, input().split())
         board[x - 1][y - 1] = color
         result[color] += 1
         change_list = []
         level = 1
         index = 0
-        while 0 <= index <= 7:
+        while 0 <= index <= 7: # 8방향 탐색
             new_x, new_y = x - 1 + dx[index] * level, y - 1 + dy[index] * level
+            # 인덱스를 벗어나거나 아무 돌도 없는 경우
             if new_x < 0 or new_x > N - 1 or new_y < 0 or new_y > N - 1 or board[new_x][new_y] == 0:
                 change_list.clear()
                 level = 1
                 index += 1
+            # 다른 색의 돌이 놓여있는 경우
             elif board[new_x][new_y] == colors[color]:
                 change_list.append((new_x, new_y))
                 level += 1
+            # 같은 색 돌이 놓여있는 경우
             else:
                 result[color] += len(change_list)
                 result[colors[color]] -= len(change_list)

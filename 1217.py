@@ -1,3 +1,4 @@
+# 거듭제곱
 def power(N, M):
     if M == 0:
         return 1
