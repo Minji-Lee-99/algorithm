@@ -1,3 +1,5 @@
+# 줄 세우기
+
 N = int(input())
 arr = list(map(int, input().split()))
 std = list(range(1, N + 1))
