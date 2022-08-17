@@ -1,11 +1,11 @@
 #파스칼의 삼각형
+
 T = int(input())
-for test_case in range(1, T + 1):
-    num = int(input())
-    print(f'#{test_case}')
-    lst0 = []
-    lst = [1]
-    for i in range(num):
-        print(' '.join(list(map(str, lst))))
-        lst0 = [0] + lst + [0]
-        lst = [(lst0[j] + lst0[j+1]) for j in range(len(lst0)-1)]
+for tc in range(1, T + 1):
+    N = int(input())
+    arr = [1]
+    print(f'#{tc}')
+    for i in range(N):
+        print(*arr)
+        arr = [0] + arr + [0]
+        arr = [arr[j] + arr[j + 1] for j in range(len(arr) - 1)]
