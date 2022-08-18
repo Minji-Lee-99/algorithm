@@ -20,6 +20,7 @@ for i in range(9):
             result = [i, j]
             break
 
+# 결과 출력
 for i in range(9):
     if i not in result:
         print(height[i])
