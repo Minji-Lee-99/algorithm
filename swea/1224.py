@@ -41,7 +41,7 @@ for tc in range(1, 11):
     # 스택에 남은 부분 모두 pop해주기
     while stack:
         post_formula.append(stack.pop())
-
+    # 계산하기
     stack = []
     for n in post_formula:
         if n.isdecimal():
