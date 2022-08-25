@@ -24,14 +24,9 @@ for _ in range(M):
         for idx in temp:
             # temp에 있는 인덱스에 있는 값들을 변경
             switch[idx] = on_off[switch[idx]]
-
 # 출력
 for i in range(N):
     print(switch[i], end=' ')
     # 20개 출력했으면 줄바꿈
     if (i + 1) % 20 == 0:
         print('\n', end='')
-
-
-
-

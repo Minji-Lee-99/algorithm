@@ -3,8 +3,41 @@
 w, h = map(int, input().split())
 p, q = map(int, input().split())
 t = int(input())
-reverse = [0, -1, 1]
-dp, dq = 1, 1
+t2 = t
+# 가로 좌표 계산
+if t > w - p:
+    t -= w - p
+    rem = t % w
+    quo = t // w
+    if quo % 2:   # quo가 홀수이면 0에 위치하고 있는 것
+        x = rem
+    else:   # quo가 짝수이면 w에 위치하고 있는 것
+        x = w - rem
+else:   # 가로축이 벽에 한번도 안부딪히는 경우
+    x = p + t
+
+# 세로 좌표 계산
+if t2 > h - q:
+    t2 -= h - q
+    rem = t2 % h
+    quo = t2 // h
+    if quo % 2:
+        y = rem
+    else:
+        y = h - rem
+else:   # 세로축이 벽에 한번도 안부딪히는 경우
+    y = q + t2
+print(x, y)
+
+
+
+
+
+
+
+
+
+
 
 
 
