@@ -9,6 +9,8 @@ for tc in range(1, T + 1):
     max_cnt = 0
     for s in student:
         l, e = s[0] // 2 + s[0] % 2, s[1] // 2 + s[1] % 2
+        if l > e:
+            l, e = e, l
         for i in range(l, e + 1):
             cnt[i] += 1
             if cnt[i] > max_cnt:
