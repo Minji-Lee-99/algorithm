@@ -20,5 +20,3 @@ for tc in range(1, T + 1):
     ans = 100
     bt(N - 1, 1, 0, arr[0] - 1)
     print(f'#{tc} {ans}')
-
-

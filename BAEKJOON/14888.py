@@ -1,5 +1,5 @@
 # 연산자 끼워넣기
-def perm(n, k, ans):
+def perm(n, k, ans):  # 가지치기 없고 모든 경우의 수를 다 봄
     global max_result, min_result
     if n == k:
         if ans > max_result:
