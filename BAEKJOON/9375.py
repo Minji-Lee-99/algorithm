@@ -74,5 +74,5 @@ for tc in range(1, T + 1):
     cnts = list(kinds.values())
     ans = 1
     for cnt in cnts:
-        ans *= (cnt + 1)
-    print(ans - 1)
+        ans *= (cnt + 1)  # 아예 선택을 하지 않는 경우의 수를 추가해서 cnt + 1을 계속 곱해준다.
+    print(ans - 1)  # 그리고 아무것도 고르지 않는 경우의 수를 1개 빼준다.

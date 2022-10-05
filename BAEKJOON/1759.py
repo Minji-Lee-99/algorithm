@@ -3,18 +3,18 @@
 # 116ms
 def comb(n, k, s, v, c):
     if n == k:
-        if v >= 1 and c >= 2:
+        if v >= 1 and c >= 2: # 끝까지 도달했을 때, 모음과 자음이 최소 개수를 만족한다면 출력
             print(''.join(p))
         return
-    if v < 1 and vowel[s] == 0:
+    if v < 1 and vowel[s] == 0:  # 모음의 개수가 1보다 적은데 남은 모음이 없는 경우
         return
-    if c < 2 and consonant[s] < 2 - c:
+    if c < 2 and consonant[s] < 2 - c:  # 자음의 개수가 2보다 적은데, 자음이 부족한 경우
         return
     for i in range(s, N - (n - k) + 1):
         p[k] = a[i]
-        if check[i] == 1:
+        if check[i] == 1: # 개수를 세기 위해서, 모음인 경우
             comb(n, k + 1, i + 1, v + 1, c)
-        else:
+        else: # 자음인 경우
             comb(n, k + 1, i + 1, v, c + 1)
 
 
