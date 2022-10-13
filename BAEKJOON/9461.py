@@ -1,4 +1,5 @@
 # 파도반 수열
+# 점화식: f(n) = f(n - 1) + f(n - 5)
 def f(n):
     if n < 6 or memo[n] != 0:
         return memo[n]
