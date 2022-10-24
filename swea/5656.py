@@ -5,35 +5,53 @@ from collections import deque
 
 def dfs(n, k, cnt, arr):
     global ans
+    if cnt == 0:  # 남은 블록이 없다면 더 계산하는 것이 무의미하기 때문에 return
+        ans = 0
+        return
     if n == k:
         # 개수 cnt개수가 가장 작은 경우를 찾는 것이 목표!
-        ans = max(ans, cnt)
+        ans = min(ans, cnt)
+        return
     else:
         for i in range(W):  # 공을 던질 열 선택하기
-            cnt2 = cnt
-            if arr[i][H - 1] == 0:  # 공을 던질 필요가 없는 경우
+            if arr[H - 1][i] == 0:  # 공을 던질 필요가 없는 경우(제일 마지막 행이 0인 경우)
                 continue
-            for j in range(H):
-                if arr[i][j] != 0:
+            for j in range(H):  # 공이 처음 맞는 위치 찾기
+                if arr[j][i] != 0:
                     break
-            temp = deepcopy(arr)
-            q = deque([(i, j)])
-            cnt2 -= 1
+            cnt2 = cnt  # 현재 남아있는 블록의 개수 저장
+            temp = deepcopy(arr)  # 현재의 블록 상태를 temp에 저장하고 temp를 조작
+            q = deque([(j, i)])  # 제일 처음 구슬에 맞는 블록
+            cnt2 -= 1  # 개수 계산
+            temp[j][i] = 0
+            # 벽돌 부수기
             while q:
                 x, y = q.popleft()
-                temp[x][y] = 0
-                for dx, dy in [[1, 0], [0, 1], [-1, 0], [0, -1]]:
-                    for level in range(arr[x][y]):
+                for dx, dy in [[1, 0], [0, 1], [-1, 0], [0, -1]]:  # 4방향 탐색
+                    for level in range(arr[x][y]):  # 해당 위치에 적힌 숫자 많큼 depth들어가기
                         nx, ny = x + dx * level, y + dy * level
-                        if 0 <= nx < H and 0 <= ny < W:
-                            temp[nx][ny] = 0
-                            if arr[nx][ny] > 1:
-                                q.append((nx, ny))
-                            elif arr[nx][ny] == 1:
+                        if 0 <= nx < H and 0 <= ny < W:  # 인덱스 벗어나는지 확인
+                            if temp[nx][ny] > 1:  # 1보다 크다면 해당 위치를 기준으로 다시 4방향 탐색을 해야 하기 때문에 q에 넣어주기
+                                temp[nx][ny] = 0  # 여러번 넣어지는 경우를 막기 위해서 0으로 만들기
                                 cnt2 -= 1
-                        else:
+                                q.append((nx, ny))
+                            elif temp[nx][ny] == 1:  # 1인 경우는 그냥 해당 블록만 부서지기 때문에 부서진 개수 체크해주고, 0으로 만들기
+                                temp[nx][ny] = 0
+                                cnt2 -= 1
+                        else:  # 인덱스 벗어나면 해당 방향은 더 볼 필요 없음
                             break
-            dfs(n, k + 1, cnt2, temp)
+            # 블록 아래로 내리기
+            for i in range(W):
+                p = deque()  # 0인 위치를 순서대로 저장(1을 찾으면 여기에서 제일 앞에 있는 위치와 change)
+                for j in range(H - 1, -1, -1):
+                    if temp[j][i] == 0:
+                        p.append((j, i))
+                    elif temp[j][i] != 0 and p:
+                        x, y = p.popleft()
+                        temp[x][y], temp[j][i] = temp[j][i], temp[x][y]
+                        p.append((j, i))  # x, y와 자리를 바꾸면 j, i에 있는 값이 0이 되니까 queue에 넣어주기
+            p.clear()  # 저장공간 때문에 비워주기!
+            dfs(n, k + 1, cnt2, temp)  # 다음 구슬의 위치 계산
 
 
 T = int(input())
@@ -47,7 +65,6 @@ for tc in range(1, T + 1):
         for j in range(W):
             if arr[i][j] != 0:
                 cnt += 1
-
     # dfs돌리기
-
-
+    dfs(N, 0, cnt, arr)
+    print(f'#{tc} {ans}')
