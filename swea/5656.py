@@ -28,7 +28,7 @@ def dfs(n, k, cnt, arr):
             while q:
                 x, y = q.popleft()
                 for dx, dy in [[1, 0], [0, 1], [-1, 0], [0, -1]]:  # 4방향 탐색
-                    for level in range(arr[x][y]):  # 해당 위치에 적힌 숫자 많큼 depth들어가기
+                    for level in range(1, arr[x][y]):  # 해당 위치에 적힌 숫자 많큼 depth들어가기
                         nx, ny = x + dx * level, y + dy * level
                         if 0 <= nx < H and 0 <= ny < W:  # 인덱스 벗어나는지 확인
                             if temp[nx][ny] > 1:  # 1보다 크다면 해당 위치를 기준으로 다시 4방향 탐색을 해야 하기 때문에 q에 넣어주기
@@ -42,15 +42,11 @@ def dfs(n, k, cnt, arr):
                             break
             # 블록 아래로 내리기
             for i in range(W):
-                p = deque()  # 0인 위치를 순서대로 저장(1을 찾으면 여기에서 제일 앞에 있는 위치와 change)
+                idx = H - 1  # 제일 마지막 위치 저장
                 for j in range(H - 1, -1, -1):
-                    if temp[j][i] == 0:
-                        p.append((j, i))
-                    elif temp[j][i] != 0 and p:
-                        x, y = p.popleft()
-                        temp[x][y], temp[j][i] = temp[j][i], temp[x][y]
-                        p.append((j, i))  # x, y와 자리를 바꾸면 j, i에 있는 값이 0이 되니까 queue에 넣어주기
-            p.clear()  # 저장공간 때문에 비워주기!
+                    if temp[j][i]:
+                        temp[idx][i], temp[j][i] = temp[j][i], temp[idx][i]
+                        idx -= 1
             dfs(n, k + 1, cnt2, temp)  # 다음 구슬의 위치 계산
 
 
