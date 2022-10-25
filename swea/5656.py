@@ -20,7 +20,7 @@ def dfs(n, k, cnt, arr):
                 if arr[j][i] != 0:
                     break
             cnt2 = cnt  # 현재 남아있는 블록의 개수 저장
-            temp = deepcopy(arr)  # 현재의 블록 상태를 temp에 저장하고 temp를 조작
+            temp = [l[::] for l in arr]  # 현재의 블록 상태를 temp에 저장하고 temp를 조작
             q = deque([(j, i)])  # 제일 처음 구슬에 맞는 블록
             cnt2 -= 1  # 개수 계산
             temp[j][i] = 0
