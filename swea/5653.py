@@ -38,6 +38,7 @@ for tc in range(1, T + 1):
             else:
                 inactive.put(temp1)
                 break
+        # t초에 죽는 세포들
         while active.qsize():
             temp2 = active.get()
             if temp2 != t:
