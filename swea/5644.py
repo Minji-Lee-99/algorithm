@@ -1,4 +1,34 @@
 # 무선 충전
+def check():
+    global total
+    p1 = arr[x1][y1]
+    p2 = arr[x2][y2]
+    if not p1 and not p2:  # 둘다 충전할 수 있는 곳이 없는 경우
+        return
+    elif not p1:  # 둘 중 하나만 충전할 곳이 있는 경우
+        total += p2[0][0]
+    elif not p2:
+        total += p1[0][0]
+    else:  # 둘 다 1개 이상의 충전기가 있는 경우
+        if p1[0] != p2[0]:
+            total += p1[0][0]
+            total += p2[0][0]
+        else:
+            total += p1[0][0]
+            if len(p1) == 1 and len(p2) == 1:
+                return
+            elif len(p1) == 1:  # p1은 1개, p2는 2개 이상
+                total += p2[1][0]
+            elif len(p2) == 1:  # p1은 2개 이상, p2는 1개
+                total += p1[1][0]
+            else:  # 둘 다 2개 이상
+                if p1[1][0] >= p2[1][0]:
+                    total += p1[1][0]
+                else:
+                    total += p2[1][0]
+    return
+
+
 T = int(input())
 for tc in range(1, T + 1):
     M, A = map(int, input().split())
@@ -24,36 +54,10 @@ for tc in range(1, T + 1):
     # 시뮬레이션
     total = 0
     for i in range(M):
-        p1 = arr[x1][y1]
-        p2 = arr[x2][y2]
-        if not p1 and not p2:  # 둘다 충전할 수 있는 곳이 없는 경우
-            print("없어서 중단!", i)
-            continue
-        elif not p1:  # 둘 중 하나만 충전할 곳이 있는 경우
-            total += p2[0][0]
-        elif not p2:
-            total += p1[0][0]
-        else:  # 둘 다 1개 이상의 충전기가 있는 경우
-            if p1[0] != p2[0]:
-                total += p1[0][0]
-                total += p2[0][0]
-            else:
-                total += p1[0][0]
-                if len(p1) == 1 and len(p2) == 1:
-                    continue
-                elif len(p1) == 1:  # p1은 1개, p2는 2개 이상
-                    total += p2[1][0]
-                elif len(p2) == 1:  # p1은 2개 이상, p2는 1개
-                    total += p1[1][0]
-                else:  # 둘 다 2개 이상
-                    if p1[1][0] >= p2[1][0]:
-                        total += p1[1][0]
-                    else:
-                        total += p2[1][0]
+        check()
         x1, y1 = x1 + di[player1[i]], y1 + dj[player1[i]]
         x2, y2 = x2 + di[player2[i]], y2 + dj[player2[i]]
-        print("i:", i, "total: ", total)
-
+    check()
     print(f'#{tc} {total}')
 
 
