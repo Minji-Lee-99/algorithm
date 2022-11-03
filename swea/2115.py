@@ -47,6 +47,8 @@ for tc in range(1, T + 1):
             price = 0
             powerset(M, 0, 0, 0, sum(temp))
             memo[i][j] = price
+
+    # memo에서 조합으로 2개를 선택한 것중 가장 값이 큰 경우 찾기
     comb(2, 0, 0, 0)
     print(f'#{tc} {ans}')
 
