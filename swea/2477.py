@@ -13,7 +13,7 @@ for tc in range(1, T + 1):
     wait_receipt = deque()  # 대기자 번호, 일반 큐 (고객 번호가 작은 순인데, 시간 순서대로 들어오기 때문에 따로 정렬해줄 필요가 없음)
     left_receipt = [i for i in range(1, N + 1)]  # 빈 접수 창구 번호 저장, 우선순위 큐(오름차순) (창구 번호가 작은 곳이 우선순위)
     repair = [[-1, -1] for _ in range(M + 1)]  # 정비 창구
-    wait_repair = deque()  # 대기하는 사람 번호, 일반 큐 ( 대기 순서대로 이기 떄문에)
+    wait_repair = deque()  # 대기하는 사람 번호, 일반 큐 (대기 순서대로 이기 떄문에)
     left_repair = [i for i in range(1, M + 1)]  # 빈 정비 창구 번호 저장, 우선순위 큐(오름차순) (창구 번호가 작은 곳이 우선순위)
 
     result = [[0, 0] for i in range(K + 1)]  # 고객이 이용한 접수 창구 번호, 정비창구 번호 저장
