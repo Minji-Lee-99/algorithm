@@ -74,41 +74,56 @@
 
 #################################################################################
 # 정렬하되, 가장 높은 자릿수의 숫자가 큰 순서대로 정렬하며, 6, 60의 경우 6이 더 큼
+# def mycmp(x, y):  # x가 더 큰 경우가 True, 반대가 False
+#     if x == y:
+#         return 0
+#     elif len(x) == len(y):
+#         if x > y:
+#             return 1
+#         else:
+#             return -1
+#     elif len(x) > len(y):
+#         temp = x[:len(y)]
+#         if temp == y:
+#             if x[len(y)] > '0':
+#                 return 1
+#             else:
+#                 return -1
+#         else:
+#             if temp> y:
+#                 return 1
+#             else:
+#                 return -1
+#     else:  # y가 더 긴 경우
+#         temp = y[:len(x)]
+#         if temp == x:
+#             if y[len(x)] > '0':
+#                 return -1
+#             else:
+#                 return 1
+#         else:
+#             if x > temp:
+#                 return 1
+#             else:
+#                 return -1
+
 from functools import cmp_to_key
 
 
-def mycmp(x, y):  # x가 더 큰 경우가 True, 반대가 False
-    if len(x) == len(y):
-        return x > y
-    elif len(x) > len(y):
-        temp = x[:len(y)]
-        if temp == y:
-            if x[len(y)] > '0':
-                return True
-            else:
-                return False
-        else:
-            return temp > y
-    else:  # y가 더 긴 경우
-        temp = y[:len(x)]
-        if temp == x:
-            if y[len(x)] > '0':
-                return False
-            else:
-                return True
-        else:
-            return x > temp
+def mycmp(x, y):  # x가 크면 양수, y가 크면 음수, 같으면 0
+    temp1 = x + y   # 두 숫자를 순서를 달리하여 이어 붙였을 때, 먼저 붙인 숫자가 더 큰 경우 해당 숫자가 더 우선순위가 높은 것
+    temp2 = y + x
+    if temp1 == temp2:
+        return 0
+    elif temp1 > temp2:
+        return 1
+    else:
+        return -1
 
 
 def solution(numbers):
     answer = ''
     numbers = list(map(str, numbers))
-    print(numbers)
-    numbers.sort(reverse=True)
-    print(numbers)
-    answer = ''.join(numbers)
+    numbers.sort(key=cmp_to_key(mycmp), reverse=True)  # 위에서 정의한 mycmp로 정렬
+    answer = str(int(''.join(numbers)))  # 0만 들어오는 경우 답은 000이 아니라 0이어야 한다.
     return answer
-
-
-
-
