@@ -3,14 +3,20 @@
 from collections import deque
 
 
-def find_set(v, p):
-    while v != p[v]:
-        v = p[v]
-    return p[v]
+# def find_set(v, p):
+#     while v != p[v]:
+#         v = p[v]
+#     return p[v]
 
 
-def union(v1, v2, p):
-    p[find_set(v2)] = find_set(v1)
+# def union(v1, v2, p):
+#     p[find_set(v2)] = find_set(v1)
+
+
+def dfs(adj):
+    x, y = 0, 0
+    for d in adj[(x, y)]:
+
 
 
 def solution(arrows):
@@ -20,6 +26,7 @@ def solution(arrows):
     adj = {(0, 0): set(), }
     p = {(0, 0): (0, 0)}
     x, y = 0, 0
+
     # 연결리스트 만들기(중복 제거)
     for d in arrows:
         nx, ny = x + dx[d], y + dy[d]
@@ -29,23 +36,9 @@ def solution(arrows):
             adj[(nx, ny)] = {(x, y)}
         adj[(x, y)].add((nx, ny))
         x, y = nx, ny
-
-    # 사이클 개수 찾기
-    q = deque([(0, 0)])
-    while q:
-        s = q.popleft()
-        for v in adj[s]:
-            if v in p and find_set(v, p) == find_set(s, p):
-                answer += 1
-            else:
-                p[v] = v
-            union(s, v, p)
-
-
-
-
     print(adj)
 
+    # 사이클 개수 찾기
 
 
 
