@@ -1,4 +1,6 @@
 # 가장 긴 증가하는 부분수열 2
+# 25 30 20 26 27
+
 N = int(input())
 arr = list(map(int, input().split()))
 lis = [arr[0]]
